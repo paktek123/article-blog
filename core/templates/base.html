@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>{% block title %}Gaming Blog{% endblock %}</title>
+        {% block css %}
+        <link rel="stylesheet" href="/media/css/normalize.css" />
+        <link rel="stylesheet" href="/media/css/foundation.css" />
+        {% endblock %}
+        {% block script %}
+        <script type="text/javascript" src="/media/js/vendor/custom.modernizr.js" ></script>
+
+        {% endblock script %}
+    </head>
+    <body>
+        <div id="header">{% block header %}{% endblock %}</div>
+        <div id="messages-wrap">
+            <div id="messages">
+                {% for msg in messages %}
+                <div class="row">
+                    <div class="large-12 columns">
+                        <p>{{ msg }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="content" class="row">
+            <div class="large-12 columns">{% block content %}{% endblock%}</div>
+        </div>
+        <div id="footer">{% block footer %}{% endblock%}</div>
+    </body>
+</html>

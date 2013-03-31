@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <h2>Welcome to Gaming Blog!</h2><a href="{% url create_article %}">Add Article</a>
+            {% url sample as the_url %}
+            <a href="#">Sample {{ the_url }}</a>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-8 columns">
+
+            {% for article in articles %}
+                <h3>{{ article.title }}</h3>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="panel">
+                            <p>{{ article.body }}</p>
+                        </div>
+                    </div>
+                </div>
+            
+            {% endfor %}
+
+            <div class="row">
+                <div class="large-6 columns">
+      
+                </div>
+                <div class="large-6 columns">
+      
+                </div>
+            </div>
+        </div>
+
+        <div class="large-4 columns">
+            <h4>Getting Started</h4>
+            <p>We're stoked you want to try Foundation! To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
+
+            <h4>Other Resources</h4>
+            <p>Once you've exhausted the fun in this document, you should check out:</p>
+            <ul class="disc">
+                <li><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</li>
+                <li><a href="http://github.com/zurb/foundation">Foundation on Github</a><br />Latest code, issue reports, feature requests and more.</li>
+                <li><a href="http://twitter.com/foundationzurb">@foundationzurb</a><br />Ping us on Twitter if you have questions. If you build something with this we'd love to see it (and send you a totally boss sticker).</li>
+            </ul>
+        </div>
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <h2>Welcome to Gaming Blog!</h2><a href="{% url new_article %}">Add Article</a>
+            <hr />
+        </div>
+    </div>
+
+    <form action="{% url new_article %}" method="post">
+        <div class="row">
+            <div class="large-6 columns">
+                
+                <label>Title</label>
+                <input class="medium" type="text" name="title" placeholder=""><br/>
+
+                <label>Body</label>
+                <textarea rows="10" class="large" name="body" placeholder=""></textarea>
+            </div>
+        </div>
+
+        <input class="button small" type="submit" value="Submit">
+    </form>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Body</th>
+                        <th>Created On</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in articles %}
+                    <tr>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.body|truncatewords:50 }}</td>
+                        <td>{{ article.created_on }}</td>
+                        <th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+{% endblock %}

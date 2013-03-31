@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<body>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <h2>Welcome to Gaming Blog!</h2><a href="{% url create_article %}">Add Article</a>
+            <hr />
+        </div>
+    </div>
+
+    <form action="{% if form_action == "edit" %} {% url update_article article.id %} {% else %} {% url create_article %} {% endif %}" method="post">
+        <div class="row">
+            <div class="large-6 columns">
+                
+                <label>Title</label>
+                <input type="text" name="title" value="{{ article.title }}"><br/>
+
+                <label>Body</label>
+                <textarea class="large" name="body" value="{{ article.body }}"></textarea>
+            </div>
+        </div>
+
+        <input class="button small" type="submit" value="Submit">
+    </form>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Body</th>
+                        <th>Created On</th>
+                        <th colspan="3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in articles %}
+                    <tr>
+                        <td>{{ a.title }}</td>
+                        <td>{{ a.body|truncatewords:50 }}</td>
+                        <td>{{ a.created_on }}</td>
+                        <!--td><a href="{# url update_article article_id=article.key.id #}">Edit</a></td-->
+                        <td><a href="{% url read_article a.key.id %}">Read</a></td>
+                        <!--td><a href="{# url delete_article article_id=article.key.id #}">Delete</a></td-->
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">Please create an article above</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+{% endblock %}
