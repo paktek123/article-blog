@@ -11,7 +11,35 @@
         {% endblock script %}
     </head>
     <body>
-        <div id="header">{% block header %}{% endblock %}</div>
+        <div id="header">
+            {% block header %}
+
+                <div class="row">
+                    <div class="large-12 columns">
+                        <h2>Welcome to Gaming Blog!</h2>
+                            <nav class="top-bar">
+                                <ul class="title-area">
+                                    <li class="name">
+                                        <h1><a href="{% url home %}">Home</a></h1>
+                                    </li>
+                                    
+                                    <li class="toggle-topbar"><a href="#"><span>Menu</span></a></li>
+                                </ul>
+
+                                <section class="top-bar-section">
+                                    <!-- Left Nav Section -->
+                                    <ul class="left">
+                                        <li class="divider"></li>
+                                        <li class="active"><a href="#">Main Item 1</a></li>
+                                    </ul>
+                                </section>
+                            </nav>
+                        <hr/>
+                    </div>
+                </div>
+
+            {% endblock %}
+        </div>
         <div id="messages-wrap">
             <div id="messages">
                 {% for msg in messages %}

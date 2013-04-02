@@ -11,9 +11,9 @@ urlpatterns += patterns(
     #url(r'^$', views.HelloWorld.as_view(), {}, name='hello-world'),
     url(r'^$', views.home, {}, name='home'),
     url(r'^article/create/$', views.create_article, name='create_article'),
-    url(r'^article/(?P<article_id>)/$', views.read_article, name='read_article'),
-    url(r'^article/edit/(?P<article_id>)/$', views.update_article, name='update_article'),
-    url(r'^article/(?P<article_id>)/delete/$', views.delete_article, name='delete_article'),
+    url(r'^article/(?P<article_id>\d+)/$', views.read_article, name='read_article'),
+    url(r'^article/edit/(?P<article_id>\d+)/$', views.update_article, name='update_article'),
+    url(r'^article/(?P<article_id>\d+)/delete/$', views.delete_article, name='delete_article'),
     url(r'^__exception_test__/$', views.exception_test, {}),
 )
 

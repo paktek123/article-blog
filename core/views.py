@@ -43,9 +43,10 @@ def create_article(request):
 def sample(request, poll_id):
     return render_to_response('index.html')
 
-def update_article(request, article_id=None):
+def update_article(request, article_id):
 
-    article = Article.get_by_key_name(article_id)
+    article = Article.get_by_id(int(article_id))
+    articles = Article.all()
 
     if request.method == "POST":
         form = ArticleForm(request.POST)
@@ -61,13 +62,13 @@ def update_article(request, article_id=None):
 
 def read_article(request, article_id):
 
-    article = Article.get_by_key_name(article_id)
+    article = Article.get_by_id(int(article_id))
 
     return render_to_response('read_article.html', dict(article=article))
 
 def delete_article(request, article_id):
 
-    article = Article.get_by_key_name(article_id)
+    article = Article.get_by_id(int(article_id))
     article.delete()
     messages.success(request, 'Article deleted successfully')
 

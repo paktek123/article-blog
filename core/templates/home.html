@@ -2,17 +2,6 @@
 
 {% block content %}
 
-<body>
-
-    <div class="row">
-        <div class="large-12 columns">
-            <h2>Welcome to Gaming Blog!</h2><a href="{% url create_article %}">Add Article</a>
-            {% url sample as the_url %}
-            <a href="#">Sample {{ the_url }}</a>
-            <hr />
-        </div>
-    </div>
-
     <div class="row">
         <div class="large-8 columns">
 
@@ -52,5 +41,5 @@
             </ul>
         </div>
     </div>
-</body>
+
 {% endblock %}
