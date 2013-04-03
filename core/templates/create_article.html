@@ -6,11 +6,17 @@
         <div class="row">
             <div class="large-6 columns">
                 
-                <label>Title</label>
-                <input type="text" name="title" value="{{ article.title }}"><br/>
+                <label {% if form.title.errors %}class="error"{% endif %}>Title (100 characters)</label>
+                <input {% if form.title.errors %}class="error"{% endif %} type="text" name="title" value="{{ article.title }}"><br/>
+                {% if form.title.errors %}<small class="error">{{ form.title.errors }}</small>{% endif %}
 
-                <label>Body</label>
-                <textarea class="large" name="body" value="{{ article.body }}">{{ article.body }}</textarea>
+                <label {% if form.created_by.errors %}class="error"{% endif %}>Created By</label>
+                <input {% if form.created_by.errors %}class="error"{% endif %} type="text" name="created_by" value="{{ article.created_by }}"><br/>
+                {% if form.created_by.errors %}<small class="error">{{ form.created_by.errors }}</small>{% endif %}
+
+                <label {% if form.body.errors %}class="error"{% endif %}>Body (500 characters)</label>
+                <textarea {% if form.body.errors %}class="error{% endif %} large" name="body" value="{{ article.body }}">{{ article.body }}</textarea>
+                {% if form.body.errors %}<small class="error">{{ form.body.errors }}</small>{% endif %}
             </div>
         </div>
 
@@ -23,6 +29,7 @@
                 <thead>
                     <tr>
                         <th>Title</th>
+                        <th>Created By</th>
                         <th>Body</th>
                         <th>Created On</th>
                         <th colspan="3">Actions</th>
@@ -32,7 +39,8 @@
                     {% for a in articles %}
                     <tr>
                         <td>{{ a.title }}</td>
-                        <td>{{ a.body|truncatewords:50 }}</td>
+                        <td>{{ a.created_by }}</td>
+                        <td>{{ a.body|truncatewords:9 }}</td>
                         <td>{{ a.created_on }}</td>
                         <td><a href="{% url update_article article_id=a.key.id %}">Edit</a></td>
                         <td><a href="{% url read_article a.key.id %}">Read</a></td>
@@ -40,7 +48,7 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="4">Please create an article above</td>
+                        <td colspan="5">Please create an article above</td>
                     </tr>
                     {% endfor %}
                 </tbody>

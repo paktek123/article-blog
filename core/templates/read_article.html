@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="large-8 columns">
-        <h3>{{ article.title }}</h3>
+    <div class="row">
+        <div class="large-8 columns">
+            <h3>{{ article.title }} by <small>{{ article.created_by }} on {{ article.created_on }}</small></h3>
             
             <div class="row">
                 <div class="large-12 columns">
                     <div class="panel">
-                        <p>{{ article.body }}</p>
+                        <p>{{ article.body|linebreaks }}</p>
                     </div>
                 </div>
             </div>

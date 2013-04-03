@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>{% block title %}Gaming Blog{% endblock %}</title>
+        <title>{% block title %}Tech Blog{% endblock %}</title>
         {% block css %}
         <link rel="stylesheet" href="/media/css/normalize.css" />
         <link rel="stylesheet" href="/media/css/foundation.css" />
@@ -16,21 +16,20 @@
 
                 <div class="row">
                     <div class="large-12 columns">
-                        <h2>Welcome to Gaming Blog!</h2>
+                        <h2>Welcome to Tech Blog!</h2>
                             <nav class="top-bar">
                                 <ul class="title-area">
                                     <li class="name">
                                         <h1><a href="{% url home %}">Home</a></h1>
                                     </li>
                                     
-                                    <li class="toggle-topbar"><a href="#"><span>Menu</span></a></li>
                                 </ul>
 
                                 <section class="top-bar-section">
                                     <!-- Left Nav Section -->
-                                    <ul class="left">
+                                    <ul class="right">
                                         <li class="divider"></li>
-                                        <li class="active"><a href="#">Main Item 1</a></li>
+                                        <li class="active"><a href="{% url create_article %}">Admin</a></li>
                                     </ul>
                                 </section>
                             </nav>
@@ -41,15 +40,13 @@
             {% endblock %}
         </div>
         <div id="messages-wrap">
-            <div id="messages">
-                {% for msg in messages %}
-                <div class="row">
-                    <div class="large-12 columns">
-                        <p>{{ msg }}</p>
-                    </div>
+            {% for message in messages %}
+            <div class="row">
+                <div class="small-6 columns">
+                    <div class="alert-box success"><p>{{ message }}</p></div>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
         <div id="content" class="row">
             <div class="large-12 columns">{% block content %}{% endblock%}</div>
