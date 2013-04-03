@@ -3,7 +3,7 @@ article-blog
 
 In the settings.py from djappengine change these:
 
-MEDIA_ROOT = PROJDIR + /core/media/
+MEDIA_ROOT = PROJDIR + '/core/media/'
 
 MEDIA_URL = '/media/'
 
