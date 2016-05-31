@@ -7,6 +7,7 @@ from django.contrib import messages
 from models import Article, ArticleForm
 import datetime
 
+# hey hows it goin
 
 class HelloWorld(TemplateView):
     template_name = "hello-world.html"
