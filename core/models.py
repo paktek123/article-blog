@@ -1,6 +1,7 @@
 from google.appengine.ext import db
 from django import forms
 
+# hi hows it goin
 class Article(db.Model):
     id = db.IntegerProperty(indexed=True)
     title = db.StringProperty(required=True)

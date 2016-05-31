@@ -1,95 +1,82 @@
+import logging
+
+from django.views.generic import TemplateView
+from django.conf import settings
 from django.shortcuts import render_to_response, redirect
 from django.contrib import messages
 from models import Article, ArticleForm
-from django.template import RequestContext
 import datetime
 
 
-def home(request):
-    """
-    Home page
-    """
-    # Order articles by latest date/time
-    articles = Article.all().order('-created_on')
+class HelloWorld(TemplateView):
+    template_name = "hello-world.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super(HelloWorld, self).get_context_data(**kwargs)        
+        self.request.session['test'] = 'Session is working'
+        context['message'] = 'Hooray! Everything seems to work... - %s' % self.request.session['test']
+        context['poll_id'] = kwargs['poll_id']
+        return context
 
-    return render_to_response('home.html',
-                              RequestContext(request, dict(articles=articles)))
+def home(request):
+    articles = Article.all()
+
+    return render_to_response('home.html', dict(articles=articles))
+
 
 def create_article(request):
-    """
-    Admin home page for managing articles
-    """
-    # Order articles by latest date/time
-    articles = Article.all().order('-created_on')
 
-    # Initiatize form
-    form = ArticleForm()
+    articles = Article.all()
 
     if request.method == "POST":
-
-        # Bind the data
         form = ArticleForm(request.POST)
 
         if form.is_valid():
             article = Article(title=form.cleaned_data['title'],
-                              body=form.cleaned_data['body'],
-                              created_by=form.cleaned_data['created_by'])
+                              body=form.cleaned_data['body'])
             article.put()
-            messages.success(request, 'Article created successfully')
+            messages.success(request, 'Article created successful')
             return redirect('create_article')
 
-    return render_to_response('create_article.html',
-                              RequestContext(request, dict(articles=articles,
-                                                           form=form)))
+    return render_to_response('create_article.html', dict(articles=articles))
+
+def sample(request, poll_id):
+    return render_to_response('index.html')
 
 def update_article(request, article_id):
-    """
-    Update an article
-    """
-    # Get the article by the article id
+
     article = Article.get_by_id(int(article_id))
-
-    # Order articles by latest date/time
-    articles = Article.all().order('-created_on')
-
-    # Initiatize form
-    form = ArticleForm()
+    articles = Article.all()
 
     if request.method == "POST":
-
-        # Bind the data
         form = ArticleForm(request.POST)
 
         if form.is_valid():
             article.title = form.cleaned_data['title']
-            article.created_by = form.cleaned_data['created_by']
             article.body = form.cleaned_data['body']
             article.put()
             messages.success(request, 'Article updated successfully')
             return redirect('create_article')
 
-    return render_to_response('create_article.html',
-                              RequestContext(request, dict(articles=articles,
-                                                           article=article,
-                                                           form_action="edit",
-                                                           form=form)))
+    return render_to_response('create_article.html', dict(articles=articles, article=article, form_action="edit"))
 
 def read_article(request, article_id):
-    """
-    Read an article
-    """
-    # Get the article by the article id
+
     article = Article.get_by_id(int(article_id))
 
     return render_to_response('read_article.html', dict(article=article))
 
 def delete_article(request, article_id):
-    """
-    Delete an article
-    """
-    # Get the article by the article id
+
     article = Article.get_by_id(int(article_id))
     article.delete()
     messages.success(request, 'Article deleted successfully')
 
     return redirect('create_article')
+
+
+def exception_test(request):
+    logging.debug('Debug log')
+    logging.warn('Warn log')
+    logging.error('Error log')
+    raise Exception()
